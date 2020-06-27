@@ -1,0 +1,84 @@
+{%extends "master.html"%}
+
+{%block content%}
+<head>
+    <style>
+        #grad1 {
+  height: 200px;
+  background-color: lavender; /* For browsers that do not support gradients */
+  /* background-image: linear-gradient(#20B2AA,#FFB6C1); */
+  width:30%;
+  box-shadow: 2px 3px #8080807d;
+  margin: 0 auto;
+  border-radius: 20px;
+  height:100%;
+  margin-bottom: 20px;
+}
+.submitButton{
+    border: 2px solid;
+    background-color: #e6e6fa;
+    align-self: center;
+    margin-left: 100px;
+    height: 40px;
+    font-size: 21px;
+    width: 75px;
+    color: #07839f;
+    border-radius: 6px;
+}
+.LoginInputBox{
+    width: 280px;
+    height: 40px;
+    padding: 18px;
+    color: black;
+    border: 1px solid;
+    border-radius: 10px;
+}
+        
+        .auto-style2 {
+            font-weight: normal;
+        }
+        .text{
+            margin-left: 50px;
+        }
+    </style>
+</head>
+<form method="POST">
+    {%csrf_token%}
+    <div id="grad1" class="auto-style1" >
+        <h1 class="auto-style1">&nbsp;<span class="auto-style2"><strong> Registration Page</strong></span></h1>
+                <br>
+                <h5 style="color: crimson;margin-left: 50px;">{{error}}</h1>
+                <input name="FirstName" type="text"  class="LoginInputBox" placeholder="First Name" style="margin-left: 50px;" required>
+                <br>
+                <br>
+                <input name="LastName" type="text"  class="LoginInputBox" placeholder="Last Name" style="margin-left: 50px;" required>
+                <br>
+                <br>
+                <input name="Password" type="password"  class="LoginInputBox" placeholder="Password" style="margin-left: 50px;" required>
+                <br>
+                <br>
+                <input name="ConfirmPassword" type="password"  class="LoginInputBox" placeholder="Retype Password" style="margin-left: 50px;" required>
+                <br>
+                <br>
+                <input name="Email" type="text" class="LoginInputBox"  placeholder="Email Id" style="margin-left: 50px;" required>
+                <br>
+                <br>
+                <input name="Phone_number" type="text" class="LoginInputBox"  placeholder="Phone Number" style="margin-left: 50px;" required>
+                <br>
+                <br>
+                <textarea name="Address" class="text"  placeholder="Addresss" style="height:99px;width:238px;" required></textarea>
+                <br>
+                <br>
+                <input type="submit" name="btnSumbit" value="Submit"  class="submitButton"style="width:100px">
+                <br>
+                <br>
+                <strong> <span id="Label1" style="margin-left: 20px;">Already Have Account Login Here</span></strong>
+                <br>
+                <a href="/myapp/login" style="color:#0000CC;text-decoration:none;margin-left:20px;" >Sign in</a>
+         </div>
+</form>
+
+
+
+
+{%endblock%}

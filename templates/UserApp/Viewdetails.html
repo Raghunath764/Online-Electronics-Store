@@ -1,0 +1,47 @@
+{%extends "master.html"%}
+
+{%block content%}
+<form method="POST" action="/myapp/addtocart/">
+    {% csrf_token %}
+<h2 style="color: crimson;">{{error}}</h2>
+<table class="table table-bordered"> 
+    <tr>
+        <td>Product Id</td>
+        <td>{{prd.id}}<input type="hidden" name="id" value="{{prd.id}}"/></td>
+    </tr> 
+        <tr>
+            <td>Product Name</td>
+            <td>{{prd.pname}}<input type="hidden" name="product_name" value="{{prd.pname}}"/></td>
+        </tr>
+        <tr>
+            <td>Product Price</td>
+            <td>{{prd.price}}<input type="hidden" name="product_price" value="{{prd.price}}"/></td>
+        </tr>
+        <tr>
+            <td>Description</td>
+            <td>{{prd.description}}</td>
+        </tr>
+        <tr>
+            <td>Category</td>
+            <td>{{prd.category}}<input type="hidden" name="product_category" value="{{prd.category}}"/></td>
+        </tr>
+        <tr>
+            <td>Image</td>
+            <td><img src="{{prd.imageurl.url}}" width="80" height="60"></td>
+        </tr>
+        <tr>
+            <td>Quantity</td>
+            <td><select name="qty">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select></td>
+        </tr>
+        <tr>
+            <td colspan="2"><button type="submit" class="btn btn-success">Add To Cart</button></td>
+        </tr>
+</table>
+</form>
+{%endblock%}

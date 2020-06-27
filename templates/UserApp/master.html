@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Online Electronics Store</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    /* Remove the navbar's default rounded borders and increase the bottom margin */ 
+    .navbar {
+      margin-bottom: 50px;
+      border-radius: 0;
+    }
+    .badge:after{
+content:attr(value);
+font-size:12px;
+background: red;
+border-radius:50%;
+padding:3px;
+position:relative;
+left:-8px;
+top:-10px;
+opacity:0.9;
+}
+    
+    /* Remove the jumbotron's default bottom margin */ 
+     .jumbotron {
+      margin-bottom: 0;
+      background-image:linear-gradient(180deg, rgba(255,0,0,1),rgba(255,0,0,0));
+    }
+   
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #f2f2f2;
+      padding: 25px;
+    }
+    .card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+
+}
+.card img{
+  width: 200px;
+  height: 200px;
+}
+
+.card a{
+  text-decoration: none;
+}
+.card a:hover{
+  color: aqua;
+}
+
+.price {
+  color: grey;
+  font-size: 22px;
+}
+
+.view{
+  border: none;
+  outline: 0;
+  padding: 4px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+  text-decoration: none;
+}
+.jumbotron{
+  /* background: url(/media/images/Desert.jpg) no-repeat center center fixed;  */
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+  </style>
+</head>
+<body>
+
+<div class="jumbotron">
+  <div class="container text-center">
+    <a href="/myapp/home/" style="text-decoration: none;"><h1><span style="color: orange">Online </span><span style="color:white">Electronics </span><span style="color:#006400">Store</span></h1></a>      
+    <p style="color: black;">Best Services,100% Assurance,Fast delivery</p>
+  </div>
+</div>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="/myapp/home/" style="color:crimson;">Online Store</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/myapp/home/">Home</a></li>
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Category
+            <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                {%for cat in cats%}
+              <li><a href="/myapp/DisplayProduct/{{cat.id}}">{{cat.cname}}</a></li>
+              {%endfor%}
+            </ul>
+          </li>
+        <li><a href="#">Deals</a></li>
+        <li><a href="#">Stores</a></li>
+        <li><a href="/myapp/ContactUs">Contact</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        {%if "Username" in request.session%}
+        <li style="margin-top: 6px;color: white;"><h4>Welcome,{{request.session.user}}</h4></li>
+        {%else%}
+        <li style="margin-top: 6px;color: white;"><h4></h4></li>
+        {%endif%}
+        <li><a href="/myapp/account"><span class="glyphicon glyphicon-th-large"></span>Account</a></li>
+        {%if "Username" in request.session%}
+        <li><a href="/myapp/logout"><span class="glyphicon glyphicon-user"></span>Logout</a></li>
+        {%else%}
+        <li><a href="/myapp/login"><span class="glyphicon glyphicon-user"></span>Login</a></li>
+        {%endif%}
+        {%if "Username" in request.session%}
+        <li><a href="/myapp/showcart"><i class="fa badge" style="font-size:14px" value={{request.session.cart_value}}>&#xf07a;</i></a></li>
+        {%else%}
+        <li><a href="/myapp/showcart"><i class="fa badge" style="font-size:14px" value=0>&#xf07a;</i></a></li>
+        {%endif%}
+      </ul>
+    </div>
+  </div>
+</nav>
+{% block content %}
+<div class="container">    
+  <div class="row">
+      {%for prd in prds%}
+    <div class="col-sm-4"> 
+      <div class="card">
+        <a href="/myapp/ViewDetails/{{prd.id}}" style="text-decoration: none;"><img src="{{prd.imageurl.url}}" alt="Denim Jeans" style="width:100%;height: 200px;"></a>
+        <h2>{{prd.pname}}</h2>
+        <p class="price"><b>₹{{prd.price}}</b></p>
+
+        <p><a href="/myapp/ViewDetails/{{prd.id}}" class="view">View Details</a></p>
+      </div>
+    </div>
+    {%endfor%}
+  </div>
+</div><br>
+{%endblock%}
+
+<footer class="container-fluid text-center">
+  <p>Online Store Copyright</p>  
+  <form class="form-inline">Get deals:
+    <input type="email" class="form-control" size="50" placeholder="Email Address">
+    <button type="button" class="btn btn-danger">Sign Up</button>
+  </form>
+</footer>
+</body>
+</html>
